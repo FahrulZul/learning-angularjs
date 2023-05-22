@@ -1,0 +1,61 @@
+<div class="container py-5">
+	<div class="row row-cols-2 g-3">
+		<div class="col-md-6">
+			<div class="rounded-3 shadow-sm p-3 bg-white">
+				<h3 class="fs-6 mb-4 blue-600">ng-model</h3>
+				<input
+					class="form-control mb-3"
+					type="text"
+					ng-model="favFood"
+					placeholder="Your favourite food"
+				/>
+				<p class="fw-medium p-0">
+					Your favourite food is:
+					<span class="fw-normal">{{favFood}}</span>
+				</p>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div
+				class="rounded-3 shadow-sm p-3 bg-white"
+				ng-init="fruits=['apple', 'banana', 'durian', 'ciku']"
+			>
+				<h3 class="fs-6 mb-4 blue-600">ng-repeat</h3>
+				<p class="text-secondary">Data is from <strong>ng-init</strong></p>
+				<ul>
+					<li ng-repeat="fruit in fruits">{{fruit}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="rounded-3 shadow-sm p-3 bg-white">
+				<h3 class="fs-6 mb-4 blue-600">ng-controller</h3>
+				<p class="text-secondary">
+					Get data from
+					<strong>$scope</strong>
+					dependecy
+				</p>
+				<ul>
+					<li ng-repeat="car in cars">{{car.name}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="rounded-3 shadow-sm p-3 bg-white">
+				<h3 class="fs-6 mb-4 blue-600">filter</h3>
+				<p class="text-secondary">Use multiple filter</p>
+				<input
+					type="text"
+					class="form-control w-50 mb-3"
+					placeholder="Search name..."
+					ng-model="search"
+				/>
+				<ul>
+					<li ng-repeat="car in cars | orderBy: 'name' | filter: search">
+						{{car.name | uppercase}} - {{car.price | currency: 'RM'}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

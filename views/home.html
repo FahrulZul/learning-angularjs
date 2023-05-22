@@ -1,0 +1,91 @@
+<div class="container py-5">
+	<div class="row mb-5">
+		<div class="col-md-6">
+			<div class="col-6">
+				<input
+					type="text"
+					class="form-control"
+					placeholder="Search car..."
+					ng-model="searchCar"
+				/>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div
+				class="d-flex h-100 justify-content-end align-items-end column-gap-3"
+			>
+				<button class="btn btn-dark btn-sm" ng-click="order = 'name'">
+					Order by Name
+				</button>
+				<button class="btn btn-dark btn-sm" ng-click="order = 'price'">
+					Order by price
+				</button>
+				<button
+					class="btn btn-primary btn-sm"
+					data-bs-toggle="modal"
+					data-bs-target="#addNewCarModal"
+				>
+					Add
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="row g-3">
+		<div
+			class="col-md-3"
+			ng-repeat="car in cars | filter: searchCar | orderBy: order"
+		>
+			<div class="d-flex justify-content-center">
+				<div class="card border-0 shadow-sm" style="width: 18rem">
+					<img
+						ng-src="{{car.imgUrl}}"
+						class="card-img-top w-100 object-fit-cover"
+						alt="{{car.name}}"
+						style="height: 160px"
+					/>
+					<div class="card-body">
+						<h5 class="card-title">{{car.name}}</h5>
+						<p>{{car.price | currency : 'RM'}}</p>
+						<a href="#" class="btn btn-danger btn-sm">delete</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addNewCarModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">Add new car</h1>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+				></button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="mb-3">
+						<label for="name" class="form-label">Car Name</label>
+						<input type="text" class="form-control" ng-model="newCar.name" />
+					</div>
+					<div class="mb-3">
+						<label for="price" class="form-label">Price (RM)</label>
+						<input type="number" class="form-control" ng-model="newCar.price" />
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+					Close
+				</button>
+				<button ng-click="addCar()" type="submit" class="btn btn-primary">
+					Submit
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
