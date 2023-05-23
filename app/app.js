@@ -1,16 +1,5 @@
 const myModule = angular.module("myModule", ["ngRoute"]);
 
-const carsData = [
-	{ name: "Nissan GTR", price: 23000, imgUrl: "./assets/nissan-gtr.png" },
-	{ name: "Toyota Supra", price: 34000, imgUrl: "./assets/toyota-supra.png" },
-	{ name: "Audi TT", price: 26000, imgUrl: "./assets/audi-tt.png" },
-	{
-		name: "Nissan Fairlady",
-		price: 26000,
-		imgUrl: "./assets/nissan-fairlady.png",
-	},
-];
-
 // fire before application run
 myModule.config([
 	"$routeProvider",
@@ -35,15 +24,32 @@ myModule.run(function () {});
 
 myModule.controller("CarsController", [
 	"$scope",
-	function ($scope) {
-		$scope.cars = carsData;
+	"$http",
+	function ($scope, $http) {
+		$http.get("data/cars.json").then(
+			function (response) {
+				$scope.cars = response.data;
+			},
+			function (error) {
+				console.log(error.statusText);
+			}
+		);
 
-		$scope.addCar = function () {
-			console.log("hello world");
-			// $scope.cars.push({
-			// 	name: $scope.newCar.name,
-			// 	price: $scope.newCar.price,
-			// });
+		$scope.addCar = () => {
+			$scope.cars.push({
+				name: $scope.newCar.name,
+				price: $scope.newCar.price,
+			});
+
+			$scope.newCar.name = "";
+			$scope.newCar.price = "";
+			$("#addNewCarModal").modal("hide");
+		};
+
+		$scope.removeCar = (car) => {
+			console.log($scope.cars.indexOf(car));
+			const thiscarIndex = $scope.cars.indexOf(car);
+			$scope.cars.splice(thiscarIndex, 1);
 		};
 	},
 ]);

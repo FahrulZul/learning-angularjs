@@ -1,0 +1,22 @@
+[
+	{
+		"name": "Nissan GTR",
+		"price": 23000,
+		"imgUrl": "./assets/images/nissan-gtr.png"
+	},
+	{
+		"name": "Toyota Supra",
+		"price": 34000,
+		"imgUrl": "./assets/images/toyota-supra.png"
+	},
+	{
+		"name": "Audi TT",
+		"price": 26000,
+		"imgUrl": "./assets/images/audi-tt.png"
+	},
+	{
+		"name": "Nissan Fairlady",
+		"price": 26000,
+		"imgUrl": "./assets/images/nissan-fairlady.png"
+	}
+]

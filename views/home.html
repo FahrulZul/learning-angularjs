@@ -38,7 +38,7 @@
 			<div class="d-flex justify-content-center">
 				<div class="card border-0 shadow-sm" style="width: 18rem">
 					<img
-						ng-src="{{car.imgUrl}}"
+						ng-src="{{car.imgUrl ? car.imgUrl : 'assets/images/default.png'}}"
 						class="card-img-top w-100 object-fit-cover"
 						alt="{{car.name}}"
 						style="height: 160px"
@@ -46,7 +46,12 @@
 					<div class="card-body">
 						<h5 class="card-title">{{car.name}}</h5>
 						<p>{{car.price | currency : 'RM'}}</p>
-						<a href="#" class="btn btn-danger btn-sm">delete</a>
+						<button
+							class="btn bg-danger-subtle btn-sm text-secondary"
+							ng-click="removeCar(car)"
+						>
+							<i class="bi bi-trash3-fill"></i>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -67,24 +72,47 @@
 				></button>
 			</div>
 			<div class="modal-body">
-				<form>
+				<form name="addCarForm" ng-submit="addCar()" novalidate>
 					<div class="mb-3">
 						<label for="name" class="form-label">Car Name</label>
-						<input type="text" class="form-control" ng-model="newCar.name" />
+						<input
+							type="text"
+							name="name"
+							class="form-control {{addCarForm.name.$invalid && addCarForm.name.$touched ? 'border border-danger': ''}}"
+							ng-model="newCar.name"
+							ng-required="true"
+						/>
+						<small
+							class="text-danger"
+							ng-show="addCarForm.name.$invalid && addCarForm.name.$touched"
+							>Required</small
+						>
 					</div>
-					<div class="mb-3">
+					<div class="mb-4">
 						<label for="price" class="form-label">Price (RM)</label>
-						<input type="number" class="form-control" ng-model="newCar.price" />
+						<input
+							type="number"
+							name="price"
+							class="form-control {{addCarForm.price.$invalid && addCarForm.price.$touched ? 'border border-danger': ''}}"
+							ng-model="newCar.price"
+							ng-required="true"
+						/>
+						<small
+							class="text-danger"
+							ng-show="addCarForm.price.$invalid && addCarForm.price.$touched"
+							>Required</small
+						>
+					</div>
+					<div class="d-flex justify-content-end">
+						<button
+							type="submit"
+							class="btn btn-primary"
+							ng-disabled="addCarForm.$invalid"
+						>
+							Add
+						</button>
 					</div>
 				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-					Close
-				</button>
-				<button ng-click="addCar()" type="submit" class="btn btn-primary">
-					Submit
-				</button>
 			</div>
 		</div>
 	</div>
